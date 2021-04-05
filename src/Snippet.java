@@ -1,20 +1,23 @@
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.event.MouseMotionListener;
 
-public class Snippet extends JPanel{
+public class  Snippet extends JPanel{
 int mouse_x;
 int mouse_y;
+JPanel snippet_body;
 
     public Snippet(String title, int x,int y, int width, int height){
         super();
         setVisible(true);
         setBounds(x,y,width,height);
         setLayout(new BorderLayout());
+        setBorder(new LineBorder(Color.decode("#141414"),1,false));
 
         JPanel snippet_head = new JPanel();
         snippet_head.setLayout(new BorderLayout(5,7));
@@ -69,7 +72,7 @@ int mouse_y;
         snippet_title.setOpaque(true);
         snippet_title.setBackground(Color.decode("#313331"));
         snippet_title.setForeground(Color.decode("#9EA39E"));
-        snippet_title.setFont(new Font("Arial", Font.PLAIN, 15));
+        snippet_title.setFont(new Font("Arial", Font.BOLD, 15));
         EmptyBorder snippet_title_border = new EmptyBorder(5,12,5,12);
         snippet_title.setBorder(snippet_title_border);
 
@@ -80,7 +83,7 @@ int mouse_y;
         button_minimize.setFocusPainted(false);
         button_minimize.setBorder(BorderFactory.createLineBorder(Color.decode("#5E615E"),2,false));
         button_minimize.setBackground(Color.decode("#313331"));
-        button_minimize.setPreferredSize(new Dimension(50,20));
+        button_minimize.setPreferredSize(new Dimension(50,25));
         button_minimize.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -93,17 +96,29 @@ int mouse_y;
                 button_minimize.setBackground(Color.decode("#313331"));
             }
         });
+        button_minimize.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                button_minimize.setBackground(Color.decode("#212121"));
+            }
+        });
+        button_minimize.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                button_minimize.setBackground(Color.decode("#212121"));
+            }
+        });
 
-        JPanel snippet_body = new JPanel();
+        snippet_body = new JPanel();
         snippet_body.setBackground(Color.decode("#252625"));
         snippet_body.setBounds(x,y,width,height);
         snippet_body.setLayout(new BorderLayout());
 
-        title_box.add(snippet_title, BorderLayout.LINE_START);
+        title_box.add(snippet_drag, BorderLayout.LINE_START);
         title_box.add(button_minimize, BorderLayout.LINE_END);
 
-        snippet_head.add(snippet_drag, BorderLayout.PAGE_START);
-        snippet_head.add(title_box);
+        snippet_head.add(title_box, BorderLayout.PAGE_START);
+        snippet_head.add(snippet_title, BorderLayout.LINE_START);
 
         add(snippet_head, BorderLayout.PAGE_START);
         add(snippet_body, BorderLayout.CENTER);

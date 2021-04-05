@@ -3,9 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class Layout extends JFrame{
-    Snippet snippet;
-    int mouse_x;
-    int mouse_y;
+    Note note;
 
     public Layout(){
 
@@ -25,11 +23,11 @@ public class Layout extends JFrame{
         panel_buttons.setBackground(Color.decode("#252625"));
         panel_buttons.setLayout(new FlowLayout());
 
-        MainButton button_add = new MainButton("Neues Snippet");
+        MainButton button_note = new MainButton("Neues Snippet");
         MainButton button_table = new MainButton("Neue Tabelle");
         MainButton button_list = new MainButton("Neue Liste");
 
-        panel_buttons.add(button_add);
+        panel_buttons.add(button_note);
         panel_buttons.add(button_table);
         panel_buttons.add(button_list);
 
@@ -37,20 +35,20 @@ public class Layout extends JFrame{
         frame.add(panel_buttons, BorderLayout.PAGE_START);
 
         //Maus-Events
-        button_add.addActionListener(new ActionListener() {
+        button_note.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String title_text = JOptionPane.showInputDialog("Abfrage:");
+                String title_text = JOptionPane.showInputDialog("Titel eingeben:");
 
-                createSnippet(title_text,frame.getWidth()/10,frame.getHeight()/10,170,260);
-                panel.add(snippet);
+                createNote(title_text,frame.getWidth()/10,frame.getHeight()/10,250,260);
+                panel.add(note);
 
                 SwingUtilities.updateComponentTreeUI(panel);
             }
         });
     }
 
-    public void createSnippet(String title, int x, int y, int width, int height){
-        snippet = new Snippet(title,x, y, width, height);
+    public void createNote(String title, int x, int y, int width, int height){
+        note = new Note(title,x, y, width, height);
     }
 }

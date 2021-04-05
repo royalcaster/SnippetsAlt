@@ -31,6 +31,18 @@ public class MainButton extends JButton {
                 setBackground(Color.decode("#141414"));
             }
         });
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                setBackground(Color.decode("#080808"));
+            }
+        });
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                setBackground(Color.decode("#080808"));
+            }
+        });
 
     }
 }
