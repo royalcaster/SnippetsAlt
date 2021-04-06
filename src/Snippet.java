@@ -1,6 +1,10 @@
+import javax.print.attribute.standard.JobKOctets;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.event.MouseInputAdapter;
+import javax.swing.plaf.DimensionUIResource;
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -11,6 +15,7 @@ public class  Snippet extends JPanel{
 int mouse_x;
 int mouse_y;
 JPanel snippet_body;
+JPanel snippet_footer;
 
     public Snippet(String title, int x,int y, int width, int height){
         super();
@@ -30,6 +35,7 @@ JPanel snippet_body;
         snippet_drag.setBackground(Color.decode("#212121"));
         snippet_drag.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
         snippet_drag.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        snippet_drag.setPreferredSize(new Dimension(100,25));
         snippet_drag.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -64,7 +70,7 @@ JPanel snippet_body;
         JPanel title_box = new JPanel();
         title_box.setVisible(true);
         title_box.setBackground(Color.decode("#313331"));
-        title_box.setLayout(new BorderLayout());
+        title_box.setLayout(new FlowLayout());
         snippet_drag.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
 
         JLabel snippet_title = new JLabel(title, SwingConstants.LEFT);
@@ -114,14 +120,31 @@ JPanel snippet_body;
         snippet_body.setBounds(x,y,width,height);
         snippet_body.setLayout(new BorderLayout());
 
-        title_box.add(snippet_drag, BorderLayout.LINE_START);
-        title_box.add(button_minimize, BorderLayout.LINE_END);
+        snippet_footer = new JPanel();
+        snippet_footer.setBackground(Color.decode("#252625"));
+        snippet_footer.setLayout(new BorderLayout());
+
+        JButton button_resize = new JButton();
+        button_resize.setText("Resize");
+        setBackground(Color.GREEN);
+
+        button_resize.addMouseListener(new MouseInputAdapter(){
+            public void mousePressed(MouseEvent e){
+                
+            }
+        }); 
+
+        title_box.add(snippet_drag);
+        title_box.add(button_minimize);
 
         snippet_head.add(title_box, BorderLayout.PAGE_START);
         snippet_head.add(snippet_title, BorderLayout.LINE_START);
 
+        snippet_footer.add(button_resize, BorderLayout.LINE_END);
+
         add(snippet_head, BorderLayout.PAGE_START);
         add(snippet_body, BorderLayout.CENTER);
+        add(snippet_footer, BorderLayout.PAGE_END);
 
     }
 }
