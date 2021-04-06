@@ -1,9 +1,14 @@
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.*;
 
 public class Layout extends JFrame{
     Note note;
+    int mouse_x;
+    int mouse_y;
+    int panel_x;
+    int panel_y;
 
     public Layout(){
 
@@ -15,9 +20,18 @@ public class Layout extends JFrame{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
 
+        //Kamerapanel
         JPanel panel = new JPanel();
         panel.setBackground(Color.decode("#141414"));
         panel.setLayout(null);
+
+        //Content-Panel
+        JPanel panel_content = new JPanel();
+        panel_content.setLayout(null);
+        panel_content.setBackground(Color.GREEN);
+        panel_content.setVisible(true);
+        panel_content.setBounds(-2040,-960,6000,3000);
+
 
         JPanel panel_buttons = new JPanel();
         panel_buttons.setBackground(Color.decode("#252625"));
@@ -31,6 +45,8 @@ public class Layout extends JFrame{
         panel_buttons.add(button_table);
         panel_buttons.add(button_list);
 
+        panel.add(panel_content);
+
         frame.add(panel, BorderLayout.CENTER);
         frame.add(panel_buttons, BorderLayout.PAGE_START);
 
@@ -40,12 +56,34 @@ public class Layout extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 String title_text = JOptionPane.showInputDialog("Titel eingeben:");
 
-                createNote(title_text,frame.getWidth()/10,frame.getHeight()/10,250,260);
-                panel.add(note);
+                createNote(title_text,Math.abs(panel_content.getX())+300,Math.abs(panel_content.getY())+300,250,260);
+                panel_content.add(note);
 
-                SwingUtilities.updateComponentTreeUI(panel);
+                SwingUtilities.updateComponentTreeUI(panel_content);
             }
         });
+
+        panel_content.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                //PointerInfo a = MouseInfo.getPointerInfo();
+                //Point b = a.getLocation();
+                mouse_x = e.getX();
+                mouse_y = e.getY();
+
+                panel_x = panel_content.getX();
+                panel_y = panel_content.getY();
+            }
+         });
+
+        panel_content.addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                panel_content.setLocation(panel_x + (e.getX()-mouse_x),panel_y + (e.getY()-mouse_y));
+            }
+        });
+        
+
     }
 
     public void createNote(String title, int x, int y, int width, int height){
