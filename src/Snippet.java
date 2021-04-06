@@ -12,10 +12,13 @@ import java.awt.event.MouseMotionAdapter;
 import java.awt.event.MouseMotionListener;
 
 public class  Snippet extends JPanel{
-int mouse_x;
-int mouse_y;
+
+int mouse_x, mouse_x2, mouse_y, mouse_y2;
 JPanel snippet_body;
 JPanel snippet_footer;
+int snippet_x;
+int snippet_y;
+
 
     public Snippet(String title, int x,int y, int width, int height){
         super();
@@ -125,12 +128,35 @@ JPanel snippet_footer;
         snippet_footer.setLayout(new BorderLayout());
 
         JButton button_resize = new JButton();
-        button_resize.setText("Resize");
-        setBackground(Color.GREEN);
+        button_resize.setText(">");
+        button_resize.setForeground(Color.decode("#5E615E"));
+        button_resize.setVisible(true);
+        button_resize.setFont(new Font("Arial", Font.BOLD, 24));
+        button_resize.setFocusPainted(false);
+        button_resize.setBorder(BorderFactory.createLineBorder(Color.decode("#5E615E"),2,false));
+        button_resize.setBackground(Color.decode("#313331"));
 
         button_resize.addMouseListener(new MouseInputAdapter(){
             public void mousePressed(MouseEvent e){
                 
+                mouse_x2 = getWidth() - (button_minimize.getWidth() - e.getX());
+                mouse_y2 = getHeight() - (button_minimize.getHeight()- e.getY());
+
+                snippet_x = getX();
+                snippet_y = getY();
+            }
+        });
+        
+        button_resize.addMouseMotionListener(new MouseInputAdapter(){
+            public void mouseDragged(MouseEvent e){
+                setBounds(snippet_x,snippet_y,getWidth()-button_minimize.getWidth()+e.getX(),getHeight()-button_minimize.getHeight()+e.getY());
+
+                //System.out.println(mouse_x2 + " | " + mouse_y2);
+                System.out.println(e.getX() + " | " + e.getY());
+
+                SwingUtilities.updateComponentTreeUI(snippet_head);
+                SwingUtilities.updateComponentTreeUI(snippet_body);
+                SwingUtilities.updateComponentTreeUI(snippet_footer);
             }
         }); 
 
@@ -145,6 +171,5 @@ JPanel snippet_footer;
         add(snippet_head, BorderLayout.PAGE_START);
         add(snippet_body, BorderLayout.CENTER);
         add(snippet_footer, BorderLayout.PAGE_END);
-
     }
 }

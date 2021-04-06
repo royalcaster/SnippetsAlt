@@ -69,7 +69,8 @@ public class Layout extends JFrame{
                 //PointerInfo a = MouseInfo.getPointerInfo();
                 //Point b = a.getLocation();
                 mouse_x = e.getX();
-                mouse_y = e.getY();                
+                mouse_y = e.getY(); 
+
             }
          });
 
