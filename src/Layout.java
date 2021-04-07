@@ -2,6 +2,7 @@ import javax.swing.*;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.*;
 
 public class Layout extends JFrame{
     Note note;
@@ -13,7 +14,6 @@ public class Layout extends JFrame{
     public Layout(){
 
         // Startfenster erzeugen
-
         JFrame frame = new JFrame("Snippets");
         frame.setVisible(true);
         frame.setSize(1280,720);
@@ -22,19 +22,18 @@ public class Layout extends JFrame{
 
         //Kamerapanel
         JPanel panel = new JPanel();
-        panel.setBackground(Color.decode("#141414"));
+        panel.setBackground(Color.decode("#020D12"));
         panel.setLayout(null);
 
         //Content-Panel
         JPanel panel_content = new JPanel();
         panel_content.setLayout(null);
-        panel_content.setBackground(Color.decode("#141414"));
+        panel_content.setBackground(Color.decode("#020D12"));
         panel_content.setVisible(true);
         panel_content.setBounds(-2040,-960,6000,3000);
 
-
         JPanel panel_buttons = new JPanel();
-        panel_buttons.setBackground(Color.decode("#252625"));
+        panel_buttons.setBackground(Color.decode("#003554"));
         panel_buttons.setLayout(new FlowLayout());
 
         MainButton button_note = new MainButton("Neues Snippet");
