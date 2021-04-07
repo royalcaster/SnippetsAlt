@@ -10,6 +10,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.event.MouseMotionListener;
+import java.util.EventListener;
 
 public class  Snippet extends JPanel{
 
@@ -18,6 +19,7 @@ JPanel snippet_body;
 JPanel snippet_footer;
 int snippet_x;
 int snippet_y;
+int count;
 
 
     public Snippet(String title, int x,int y, int width, int height){
@@ -26,6 +28,7 @@ int snippet_y;
         setBounds(x,y,width,height);
         setLayout(new BorderLayout());
         setBorder(new LineBorder(Color.decode("#141414"),1,false));
+        count = 2;
 
         JPanel snippet_head = new JPanel();
         snippet_head.setLayout(new BorderLayout(5,7));
@@ -105,42 +108,38 @@ int snippet_y;
                 button_minimize.setBackground(Color.decode("#313331"));
             }
         });
-        button_minimize.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                button_minimize.setBackground(Color.decode("#212121"));
+
+        button_minimize.addMouseListener(new MouseAdapter(){
+            public void mouseReleased(MouseEvent e){
+                count++;
             }
-        });
-        button_minimize.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                button_minimize.setBackground(Color.decode("#212121"));
-            }
+            
         });
 
         snippet_body = new JPanel();
-        snippet_body.setBackground(Color.decode("#252625"));
+        snippet_body.setBackground(Color.decode("#1E1F1E"));
         snippet_body.setBounds(x,y,width,height);
         snippet_body.setLayout(new BorderLayout());
 
         snippet_footer = new JPanel();
-        snippet_footer.setBackground(Color.decode("#252625"));
+        snippet_footer.setBackground(Color.decode("#1E1F1E"));
         snippet_footer.setLayout(new BorderLayout());
 
         JButton button_resize = new JButton();
-        button_resize.setText(">");
+        button_resize.setText(" ");
         button_resize.setForeground(Color.decode("#5E615E"));
         button_resize.setVisible(true);
         button_resize.setFont(new Font("Arial", Font.BOLD, 24));
         button_resize.setFocusPainted(false);
-        button_resize.setBorder(BorderFactory.createLineBorder(Color.decode("#5E615E"),2,false));
+        button_resize.setBorder(BorderFactory.createLineBorder(Color.decode("#313331"),1,false));
         button_resize.setBackground(Color.decode("#313331"));
+        button_resize.setPreferredSize(new Dimension(25,25));
 
         button_resize.addMouseListener(new MouseInputAdapter(){
             public void mousePressed(MouseEvent e){
                 
-                mouse_x2 = getWidth() - (button_minimize.getWidth() - e.getX());
-                mouse_y2 = getHeight() - (button_minimize.getHeight()- e.getY());
+                mouse_x2 = e.getX();
+                mouse_y2 = e.getY();
 
                 snippet_x = getX();
                 snippet_y = getY();
@@ -149,7 +148,7 @@ int snippet_y;
         
         button_resize.addMouseMotionListener(new MouseInputAdapter(){
             public void mouseDragged(MouseEvent e){
-                setBounds(snippet_x,snippet_y,getWidth()-button_minimize.getWidth()+e.getX(),getHeight()-button_minimize.getHeight()+e.getY());
+                setBounds(snippet_x,snippet_y,getWidth() + e.getX()-mouse_x2,getHeight() + e.getY()-mouse_y2);
 
                 //System.out.println(mouse_x2 + " | " + mouse_y2);
                 System.out.println(e.getX() + " | " + e.getY());
@@ -172,4 +171,5 @@ int snippet_y;
         add(snippet_body, BorderLayout.CENTER);
         add(snippet_footer, BorderLayout.PAGE_END);
     }
+
 }

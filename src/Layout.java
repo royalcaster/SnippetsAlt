@@ -93,6 +93,7 @@ public class Layout extends JFrame{
                 */
         }
         });    
+
     }
 
     public void createNote(String title, int x, int y, int width, int height){
