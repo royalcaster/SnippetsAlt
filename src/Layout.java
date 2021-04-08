@@ -1,10 +1,16 @@
 import javax.swing.*;
 
+import org.graalvm.compiler.lir.CompositeValue.Component;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
+import java.io.File;
 
 public class Layout extends JFrame{
+    /**
+     *
+     */
     Note note;
     int mouse_x;
     int mouse_y;
@@ -22,23 +28,23 @@ public class Layout extends JFrame{
 
         //Kamerapanel
         JPanel panel = new JPanel();
-        panel.setBackground(Color.decode("#020D12"));
+        panel.setBackground(Color.decode("#0D0D0D"));
         panel.setLayout(null);
 
         //Content-Panel
         JPanel panel_content = new JPanel();
         panel_content.setLayout(null);
-        panel_content.setBackground(Color.decode("#020D12"));
+        panel_content.setBackground(Color.decode("#0D0D0D"));
         panel_content.setVisible(true);
         panel_content.setBounds(-2040,-960,6000,3000);
 
         JPanel panel_buttons = new JPanel();
-        panel_buttons.setBackground(Color.decode("#003554"));
-        panel_buttons.setLayout(new FlowLayout());
+        panel_buttons.setBackground(Color.decode("#141414"));
+        panel_buttons.setLayout(new GridLayout(8,1,10,10));
 
-        MainButton button_note = new MainButton("Neues Snippet");
-        MainButton button_table = new MainButton("Neue Tabelle");
-        MainButton button_list = new MainButton("Neue Liste");
+        MainButton button_note = new MainButton("Notiz","src/icons/icon_note.png","src/icons/icon_note_hover.png");
+        MainButton button_table = new MainButton("Tabelle","src/icons/icon_table.png","src/icons/icon_table_hover.png");
+        MainButton button_list = new MainButton("Liste","src/icons/icon_list.png","src/icons/icon_list_hover.png");
 
         panel_buttons.add(button_note);
         panel_buttons.add(button_table);
@@ -47,7 +53,7 @@ public class Layout extends JFrame{
         panel.add(panel_content);
 
         frame.add(panel, BorderLayout.CENTER);
-        frame.add(panel_buttons, BorderLayout.PAGE_START);
+        frame.add(panel_buttons, BorderLayout.WEST);
 
         //Maus-Events
         button_note.addActionListener(new ActionListener() {
