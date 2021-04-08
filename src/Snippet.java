@@ -20,6 +20,7 @@ JPanel snippet_footer;
 int snippet_x;
 int snippet_y;
 int count;
+boolean wrapped;
 
 
     public Snippet(String title, int x,int y, int width, int height){
@@ -28,7 +29,7 @@ int count;
         setBounds(x,y,width,height);
         setLayout(new BorderLayout());
         setBorder(new LineBorder(Color.decode("#141414"),1,false));
-        count = 2;
+        wrapped = false;
 
         JPanel snippet_head = new JPanel();
         snippet_head.setLayout(new BorderLayout(5,7));
@@ -88,6 +89,7 @@ int count;
         EmptyBorder snippet_title_border = new EmptyBorder(5,12,5,12);
         snippet_title.setBorder(snippet_title_border);
 
+        /*
         JButton button_minimize = new JButton("-");
         button_minimize.setForeground(Color.decode("#5E615E"));
         button_minimize.setVisible(true);
@@ -108,16 +110,27 @@ int count;
                 button_minimize.setBackground(Color.decode("#313331"));
             }
         });
-
+        
         button_minimize.addMouseListener(new MouseAdapter(){
             public void mouseReleased(MouseEvent e){
-                count++;
+                if (wrapped == true) {
+                    add(snippet_body);
+                    add(snippet_footer);
+                    wrapped = false;
+                }
+                else if (wrapped == false) {
+                    remove(snippet_body);
+                    remove(snippet_footer);
+                    wrapped = true;
+                }
+                SwingUtilities.updateComponentTreeUI(snippet_body);
+                SwingUtilities.updateComponentTreeUI(snippet_footer);
             }
             
-        });
+        });*/
 
         snippet_body = new JPanel();
-        snippet_body.setBackground(Color.decode("#1E1F1E"));
+        snippet_body.setBackground(Color.decode("#17252A"));
         snippet_body.setBounds(x,y,width,height);
         snippet_body.setLayout(new BorderLayout());
 
@@ -160,7 +173,7 @@ int count;
         }); 
 
         title_box.add(snippet_drag);
-        title_box.add(button_minimize);
+        //title_box.add(button_minimize);
 
         snippet_head.add(title_box, BorderLayout.PAGE_START);
         snippet_head.add(snippet_title, BorderLayout.LINE_START);
