@@ -1,9 +1,15 @@
 import javax.swing.*;
 
+import org.graalvm.compiler.lir.CompositeValue.Component;
+
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 
 public class Layout extends JFrame{
+    /**
+     *
+     */
     Note note;
     int mouse_x;
     int mouse_y;
@@ -22,24 +28,23 @@ public class Layout extends JFrame{
 
         //Kamerapanel
         JPanel panel = new JPanel();
-        panel.setBackground(Color.decode("#141414"));
+        panel.setBackground(Color.decode("#17252A"));
         panel.setLayout(null);
 
         //Content-Panel
         JPanel panel_content = new JPanel();
         panel_content.setLayout(null);
-        panel_content.setBackground(Color.decode("#141414"));
+        panel_content.setBackground(Color.decode("#17252A"));
         panel_content.setVisible(true);
         panel_content.setBounds(-2040,-960,6000,3000);
 
-
         JPanel panel_buttons = new JPanel();
-        panel_buttons.setBackground(Color.decode("#252625"));
-        panel_buttons.setLayout(new FlowLayout());
+        panel_buttons.setBackground(Color.decode("#2B7A78"));
+        panel_buttons.setLayout(new BoxLayout(panel_buttons, BoxLayout.Y_AXIS));
 
-        MainButton button_note = new MainButton("Neues Snippet");
-        MainButton button_table = new MainButton("Neue Tabelle");
-        MainButton button_list = new MainButton("Neue Liste");
+        MainButton button_note = new MainButton("src/icons/icon_note.png");
+        MainButton button_table = new MainButton("src/icons/icon_table.png");
+        MainButton button_list = new MainButton("src/icons/icon_list.png");
 
         panel_buttons.add(button_note);
         panel_buttons.add(button_table);
@@ -48,7 +53,7 @@ public class Layout extends JFrame{
         panel.add(panel_content);
 
         frame.add(panel, BorderLayout.CENTER);
-        frame.add(panel_buttons, BorderLayout.PAGE_START);
+        frame.add(panel_buttons, BorderLayout.WEST);
 
         //Maus-Events
         button_note.addActionListener(new ActionListener() {
