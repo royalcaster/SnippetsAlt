@@ -10,20 +10,17 @@ import java.io.*;
 public class MainButton extends JButton {
     Font roboto;
 
-    public MainButton(String text, String url, String url2){
+    public MainButton(String text, String url){
         super();
 
         Icon icon = new ImageIcon(url);
         setIcon(icon);
 
-        Icon icon_hover = new ImageIcon(url2);
-
-        setSize(new Dimension(100,100));
-        setBackground(Color.decode("#2B7A78"));
-        setForeground(Color.decode("#9EA39E"));
+        setBackground(Color.decode("#141414"));
+        setForeground(Color.decode("#E6E6E6"));
         setText(text);
         setBorderPainted(false);
-        setFont(new Font("Century Gothic", Font.PLAIN, 15));
+        setFont(new Font("Arial Nova Light", Font.PLAIN, 14));
         setVerticalTextPosition(SwingConstants.BOTTOM);
         setHorizontalTextPosition(SwingConstants.CENTER);
         setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -31,27 +28,13 @@ public class MainButton extends JButton {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                setBackground(Color.decode("#266E6B"));
-                setIcon(icon_hover);
+                setBackground(Color.decode("#1A1A1A"));
             }
         });
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseExited(MouseEvent e) {
-                setBackground(Color.decode("#2B7A78"));
-                setIcon(icon);
-            }
-        });
-        addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                setBackground(Color.decode("#080808"));  
-            }
-        });
-        addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                setBackground(Color.decode("#080808"));
+                setBackground(Color.decode("#141414"));
             }
         });
 

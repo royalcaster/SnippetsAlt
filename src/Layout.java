@@ -40,15 +40,17 @@ public class Layout extends JFrame{
 
         JPanel panel_buttons = new JPanel();
         panel_buttons.setBackground(Color.decode("#141414"));
-        panel_buttons.setLayout(new GridLayout(8,1,10,10));
+        panel_buttons.setLayout(new GridLayout(12,1,0,0));
 
-        MainButton button_note = new MainButton("Notiz","src/icons/icon_note.png","src/icons/icon_note_hover.png");
-        MainButton button_table = new MainButton("Tabelle","src/icons/icon_table.png","src/icons/icon_table_hover.png");
-        MainButton button_list = new MainButton("Liste","src/icons/icon_list.png","src/icons/icon_list_hover.png");
+        MainButton button_note = new MainButton("Notiz","src/icons/icon_note.png");
+        MainButton button_table = new MainButton("Tabelle","src/icons/icon_table.png");
+        MainButton button_list = new MainButton("Liste","src/icons/icon_list.png");
+        MainButton button_delete = new MainButton("Löschen","src/icons/icon_delete.png");
 
         panel_buttons.add(button_note);
         panel_buttons.add(button_table);
         panel_buttons.add(button_list);
+        panel_buttons.add(button_delete);
 
         panel.add(panel_content);
 

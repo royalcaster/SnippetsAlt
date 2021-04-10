@@ -80,14 +80,24 @@ boolean wrapped;
         title_box.setLayout(new FlowLayout());
         snippet_drag.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
 
-        JLabel snippet_title = new JLabel(title, SwingConstants.LEFT);
+        JTextField snippet_title = new JTextField(title);
         snippet_title.setVisible(true);
-        snippet_title.setOpaque(true);
         snippet_title.setBackground(Color.decode("#313331"));
-        snippet_title.setForeground(Color.decode("#9EA39E"));
-        snippet_title.setFont(new Font("Arial", Font.BOLD, 15));
+        snippet_title.setForeground(Color.decode("#E6E6E6"));
+        snippet_title.setFont(new Font("Arial Nova Light", Font.BOLD, 16));
         EmptyBorder snippet_title_border = new EmptyBorder(5,12,5,12);
         snippet_title.setBorder(snippet_title_border);
+
+        snippet_title.addMouseListener(new MouseAdapter(){
+            public void mouseEntered(MouseEvent e){
+                snippet_title.setBackground(Color.decode("#2C2E2C"));
+            }
+        });
+        snippet_title.addMouseListener(new MouseAdapter(){
+            public void mouseExited(MouseEvent e){
+                snippet_title.setBackground(Color.decode("#313331"));
+            }
+        });
 
         /*
         JButton button_minimize = new JButton("-");
@@ -136,7 +146,7 @@ boolean wrapped;
 
         snippet_footer = new JPanel();
         snippet_footer.setBackground(Color.decode("#1E1F1E"));
-        snippet_footer.setLayout(new BorderLayout());
+        snippet_footer.setLayout(new BorderLayout(10,10));
 
         JButton button_resize = new JButton();
         button_resize.setText(" ");
@@ -176,7 +186,7 @@ boolean wrapped;
         //title_box.add(button_minimize);
 
         snippet_head.add(title_box, BorderLayout.PAGE_START);
-        snippet_head.add(snippet_title, BorderLayout.LINE_START);
+        snippet_head.add(snippet_title);
 
         snippet_footer.add(button_resize, BorderLayout.LINE_END);
 
