@@ -20,7 +20,9 @@ JPanel snippet_footer;
 int snippet_x;
 int snippet_y;
 int count;
-boolean wrapped;
+int isdragged;
+int border_x;
+int border_y;
 
 
     public Snippet(String title, int x,int y, int width, int height){
@@ -29,7 +31,7 @@ boolean wrapped;
         setBounds(x,y,width,height);
         setLayout(new BorderLayout());
         setBorder(new LineBorder(Color.decode("#141414"),1,false));
-        wrapped = false;
+        isdragged = 0;
 
         JPanel snippet_head = new JPanel();
         snippet_head.setLayout(new BorderLayout(5,7));
@@ -56,7 +58,23 @@ boolean wrapped;
         snippet_drag.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
-                setLocation(e.getX() - mouse_x + getLocation().x,e.getY() - mouse_y + getLocation().y);
+
+                    setLocation(e.getX() - mouse_x + getLocation().x,e.getY() - mouse_y + getLocation().y);
+                
+                border_x = getX()+250;
+                border_y = getY()+270;
+            }
+        });
+
+        snippet_drag.addMouseListener(new MouseAdapter(){
+            public void mousePressed(MouseEvent e){
+                isdragged = 1;
+            }
+        });
+
+        snippet_drag.addMouseListener(new MouseAdapter(){
+            public void mouseReleased(MouseEvent e){
+                isdragged = 0;
             }
         });
 
@@ -166,19 +184,32 @@ boolean wrapped;
 
                 snippet_x = getX();
                 snippet_y = getY();
+
             }
         });
         
         button_resize.addMouseMotionListener(new MouseInputAdapter(){
             public void mouseDragged(MouseEvent e){
-                setBounds(snippet_x,snippet_y,getWidth() + e.getX()-mouse_x2,getHeight() + e.getY()-mouse_y2);
 
-                //System.out.println(mouse_x2 + " | " + mouse_y2);
-                System.out.println(e.getX() + " | " + e.getY());
+                if ((getX()+getWidth()-button_resize.getWidth()+e.getX())>border_x && (getY()+getHeight()-button_resize.getHeight()+e.getY())>border_y){
+                    setBounds(snippet_x,snippet_y,getWidth() + e.getX()-mouse_x2,getHeight() + e.getY()-mouse_y2);
+                }
+                else if ((getX()+getWidth()-button_resize.getWidth()+e.getX())<border_x && (getY()+getHeight()-button_resize.getHeight()+e.getY())>border_y) {
+                    setBounds(snippet_x,snippet_y,border_x-getX(),getHeight() + e.getY()-mouse_y2);
+                }
+                else if ((getX()+getWidth()-button_resize.getWidth()+e.getX())>border_x && (getY()+getHeight()-button_resize.getHeight()+e.getY())<border_y){
+                    setBounds(snippet_x,snippet_y,getWidth() + e.getX()-mouse_x2,border_y-getY());
+                }
+
+                
+
+                System.out.println(button_resize.getX() + " | " + button_resize.getY());
 
                 SwingUtilities.updateComponentTreeUI(snippet_head);
                 SwingUtilities.updateComponentTreeUI(snippet_body);
                 SwingUtilities.updateComponentTreeUI(snippet_footer);
+
+                
             }
         }); 
 
@@ -193,6 +224,10 @@ boolean wrapped;
         add(snippet_head, BorderLayout.PAGE_START);
         add(snippet_body, BorderLayout.CENTER);
         add(snippet_footer, BorderLayout.PAGE_END);
+    }
+
+    public int isDragged(){
+        return isdragged;
     }
 
 }

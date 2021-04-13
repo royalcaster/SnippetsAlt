@@ -1,7 +1,5 @@
 import javax.swing.*;
 
-import org.graalvm.compiler.lir.CompositeValue.Component;
-
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
@@ -46,6 +44,17 @@ public class Layout extends JFrame{
         MainButton button_table = new MainButton("Tabelle","src/icons/icon_table.png");
         MainButton button_list = new MainButton("Liste","src/icons/icon_list.png");
         MainButton button_delete = new MainButton("Löschen","src/icons/icon_delete.png");
+
+        button_delete.addMouseListener(new MouseAdapter(){
+            public void mouseReleased(MouseEvent e){
+                if (note.isdragged == 1)
+                {
+                    note.setVisible(false);
+                    SwingUtilities.updateComponentTreeUI(panel_content);
+                }        
+            }
+        });
+
 
         panel_buttons.add(button_note);
         panel_buttons.add(button_table);

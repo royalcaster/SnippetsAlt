@@ -13,8 +13,14 @@ public class Note extends Snippet{
         textarea.setBorder(new EmptyBorder(15,15,15,15));
         textarea.setFont(new Font("Arial Nova Light",Font.PLAIN,15));
         snippet_body.add(textarea, BorderLayout.CENTER);
-
         textarea.setCaretPosition(0);
+
+        if (isdragged == 1){
+            textarea.setText("true");
+        }
+        else {
+            textarea.setText("false");
+        }
 
     }
 }
