@@ -10,6 +10,7 @@ public class Layout extends JFrame{
      *
      */
     Note note;
+    Table table;
     int mouse_x;
     int mouse_y;
     int panel_x;
@@ -43,23 +44,11 @@ public class Layout extends JFrame{
         MainButton button_note = new MainButton("Notiz","src/icons/icon_note.png");
         MainButton button_table = new MainButton("Tabelle","src/icons/icon_table.png");
         MainButton button_list = new MainButton("Liste","src/icons/icon_list.png");
-        MainButton button_delete = new MainButton("Löschen","src/icons/icon_delete.png");
-
-        button_delete.addMouseListener(new MouseAdapter(){
-            public void mouseReleased(MouseEvent e){
-                if (note.isdragged == 1)
-                {
-                    note.setVisible(false);
-                    SwingUtilities.updateComponentTreeUI(panel_content);
-                }        
-            }
-        });
 
 
         panel_buttons.add(button_note);
         panel_buttons.add(button_table);
         panel_buttons.add(button_list);
-        panel_buttons.add(button_delete);
 
         panel.add(panel_content);
 
@@ -72,8 +61,17 @@ public class Layout extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 String title_text = JOptionPane.showInputDialog("Titel eingeben:");
 
-                createNote(title_text,Math.abs(panel_content.getX())+300,Math.abs(panel_content.getY())+300,250,260);
+                createNote(title_text,Math.abs(panel_content.getX())+300,Math.abs(panel_content.getY())+300,250,260,"src/icons/icon_note_small.png");
                 panel_content.add(note);
+
+                SwingUtilities.updateComponentTreeUI(panel_content);
+            }
+        });
+
+        button_table.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                createTable("Test",Math.abs(panel_content.getX())+300,Math.abs(panel_content.getY())+300,250,260,"src/icons/icon_table_small.png");
+                panel_content.add(table);
 
                 SwingUtilities.updateComponentTreeUI(panel_content);
             }
@@ -112,7 +110,11 @@ public class Layout extends JFrame{
 
     }
 
-    public void createNote(String title, int x, int y, int width, int height){
-        note = new Note(title,x, y, width, height);
+    public void createNote(String title, int x, int y, int width, int height, String url2){
+        note = new Note(title,x, y, width, height,url2);
+    }
+
+    public void createTable(String title, int x, int y, int width, int height, String url2){
+        table = new Table(title,x,y,width,height, url2);
     }
 }
